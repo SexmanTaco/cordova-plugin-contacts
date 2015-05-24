@@ -291,12 +291,13 @@
                 return;
             }
 
-        CFIndex nPeople = ABAddressBookGetPersonCount(addrBook);
-            CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsInt:nPeople];
-            [weakSelf.commandDelegate sendPluginResult:result callbackId:command.callbackId];
-        if (addrBook) {
-            CFRelease(addrBook);
-        }
+            CFIndex nPeople = ABAddressBookGetPersonCount(addrBook);
+                CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsInt:nPeople];
+                [weakSelf.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+            if (addrBook) {
+                CFRelease(addrBook);
+            }
+        }];
     }];
     return;
 }
