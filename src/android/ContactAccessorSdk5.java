@@ -131,7 +131,9 @@ public class ContactAccessorSdk5 extends ContactAccessor {
     public int count() {
         Cursor c = mApp.getActivity().getContentResolver().query(ContactsContract.Contacts.CONTENT_URI,
                 null, null, null, null);
-        return c.getCount();
+        int contactCount = c.getCount();
+        c.close();
+        return contactCount;
     }
 
     /**
