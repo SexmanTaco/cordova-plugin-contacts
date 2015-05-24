@@ -278,6 +278,18 @@
     // not implemented
 }
 
+- (void)count:(CDVInvokedUrlCommand*)command
+{
+    [self.commandDelegate runInBackground:^{
+        ABAddressBookRef addressBook = ABAddressBookCreate();
+        CFIndex nPeople = ABAddressBookGetPersonCount(addressBook);
+        CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:nPeople
+        [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+        CFRelease(addressBook);
+    }];
+    return;
+}
+
 - (void)search:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = command.callbackId;
