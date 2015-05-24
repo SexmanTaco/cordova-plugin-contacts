@@ -281,10 +281,19 @@
 - (void)count:(CDVInvokedUrlCommand*)command
 {
     [self.commandDelegate runInBackground:^{
-        ABAddressBookRef* addressBook = ABAddressBookCreate();
-        CFIndex* nPeople = ABAddressBookGetPersonCount(addressBook);
-        CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:nPeople
-        [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+        CDVAddressBookHelper* abHelper = [[CDVAddressBookHelper alloc] init];
+        CDVContacts* __weak weakSelf = self;
+        [abHelper createAddressBook: ^(ABAddressBookRef addrBook, CDVAddressBookAccessError* errCode) {
+            if (addrBook == NULL) {
+                // permission was denied or other error - return error
+                CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageToErrorObject:errCode ? (int)errCode.errorCode:UNKNOWN_ERROR];
+                [weakSelf.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+                return;
+            }
+
+        CFIndex* nPeople = ABAddressBookGetPersonCount(addrBook);
+        CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsInt:nPeople
+        [weakSelf.commandDelegate sendPluginResult:result callbackId:command.callbackId];
         CFRelease(addressBook);
     }];
     return;
