@@ -87,6 +87,8 @@
  */
 - (void)search:(CDVInvokedUrlCommand*)command;
 
+- (void)count:(CDVInvokedUrlCommand*)command;
+
 /*
  * save - saves a new contact or updates and existing contact
  *
