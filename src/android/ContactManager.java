@@ -100,7 +100,7 @@ public class ContactManager extends CordovaPlugin {
         else if (action.equals("count")) {
             this.cordova.getThreadPool().execute(new Runnable() {
                 public void run() {
-                    int res = contactAccessor.search();
+                    int res = contactAccessor.count();
                     callbackContext.success(res);
                 }
             });
