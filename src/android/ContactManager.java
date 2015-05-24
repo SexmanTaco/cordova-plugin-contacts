@@ -32,6 +32,8 @@ import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.RawContacts;
 import android.util.Log;
 
+import java.lang.Runnable;
+
 public class ContactManager extends CordovaPlugin {
 
     private ContactAccessor contactAccessor;
@@ -91,6 +93,14 @@ public class ContactManager extends CordovaPlugin {
             this.cordova.getThreadPool().execute(new Runnable() {
                 public void run() {
                     JSONArray res = contactAccessor.search(filter, options);
+                    callbackContext.success(res);
+                }
+            });
+        }
+        else if (action.equals("count")) {
+            this.cordova.getThreadPool().execute(new Runnable() {
+                public void run() {
+                    int res = contactAccessor.search();
                     callbackContext.success(res);
                 }
             });

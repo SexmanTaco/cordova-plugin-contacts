@@ -153,6 +153,11 @@ public abstract class ContactAccessor {
     public abstract JSONArray search(JSONArray filter, JSONObject options);
 
     /**
+     * @return total number of contacts
+     */
+    public abstract int count();
+
+    /**
      * Handles searching through SDK-specific contacts API.
      * @throws JSONException
      */

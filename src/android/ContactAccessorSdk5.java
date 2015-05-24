@@ -24,6 +24,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.Override;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -126,6 +127,13 @@ public class ContactAccessorSdk5 extends ContactAccessor {
         mApp = context;
     }
     
+    @Override
+    public int count() {
+        Cursor c = mApp.getActivity().getContentResolver().query(ContactsContract.Contacts.CONTENT_URI,
+                null, null, null, null);
+        return c.getCount();
+    }
+
     /**
      * This method takes the fields required and search options in order to produce an
      * array of contacts that matches the criteria provided.
