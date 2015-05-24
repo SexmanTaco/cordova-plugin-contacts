@@ -63,12 +63,12 @@ var contacts = {
      * Returns the total number of contacts.
      * @return number of contacts
      */
-    /*count: function(successCB, errorCB) {
+    count: function(successCB, errorCB) {
         var win = function(result) {
             successCB(result);
         }
         exec(win, errorCB, "Contacts", "count", []);
-    }*/
+    },
     
     /**
      * This function picks contact from phone using contact picker UI
