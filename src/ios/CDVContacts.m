@@ -292,7 +292,7 @@
             }
 
             CFIndex nPeople = ABAddressBookGetPersonCount(addrBook);
-                CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsInt:nPeople];
+                CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsInt:(int)nPeople];
                 [weakSelf.commandDelegate sendPluginResult:result callbackId:command.callbackId];
             if (addrBook) {
                 CFRelease(addrBook);
