@@ -400,6 +400,7 @@
             [weakSelf.commandDelegate sendPluginResult:result callbackId:callbackId];
             // NSLog(@"findCallback string: %@", jsString);
 
+            [foundRecords release];
             if (addrBook) {
                 CFRelease(addrBook);
             }
