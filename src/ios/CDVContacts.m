@@ -350,7 +350,7 @@
             NSMutableArray* matches = nil;
             if (!filter || [filter isEqualToString:@""]) {
                 // get all records
-                foundRecords = (__bridge_transfer NSArray*)ABAddressBookCopyArrayOfAllPeople(addrBook);
+                foundRecords = CFBridgingRelease(ABAddressBookCopyArrayOfAllPeople(addrBook));
                 if (foundRecords && ([foundRecords count] > 0)) {
                     // create Contacts and put into matches array
                     // doesn't make sense to ask for all records when multiple == NO but better check
@@ -364,7 +364,7 @@
                     }
                 }
             } else {
-                foundRecords = (__bridge_transfer NSArray*)ABAddressBookCopyArrayOfAllPeople(addrBook);
+                foundRecords = CFBridgingRelease(ABAddressBookCopyArrayOfAllPeople(addrBook));
                 matches = [NSMutableArray arrayWithCapacity:1];
                 BOOL bFound = NO;
                 int testCount = (int)[foundRecords count];
@@ -400,9 +400,6 @@
             [weakSelf.commandDelegate sendPluginResult:result callbackId:callbackId];
             // NSLog(@"findCallback string: %@", jsString);
 
-            if (foundRecords) {
-                CFRelease(foundRecords);
-            }
             if (addrBook) {
                 CFRelease(addrBook);
             }
