@@ -350,7 +350,7 @@
             NSMutableArray* matches = nil;
             if (!filter || [filter isEqualToString:@""]) {
                 // get all records
-                foundRecords = ABAddressBookCopyArrayOfAllPeople(addrBook);
+                foundRecords = CFBridgingRelease(ABAddressBookCopyArrayOfAllPeople(addrBook));
                 if (foundRecords && ([foundRecords count] > 0)) {
                     // create Contacts and put into matches array
                     // doesn't make sense to ask for all records when multiple == NO but better check
@@ -364,7 +364,7 @@
                     }
                 }
             } else {
-                foundRecords = ABAddressBookCopyArrayOfAllPeople(addrBook);
+                foundRecords = CFBridgingRelease(ABAddressBookCopyArrayOfAllPeople(addrBook));
                 matches = [NSMutableArray arrayWithCapacity:1];
                 BOOL bFound = NO;
                 int testCount = (int)[foundRecords count];
@@ -403,9 +403,7 @@
             if (addrBook) {
                 CFRelease(addrBook);
             }
-            if (foundRecords) {
-                CFRelease(foundRecords);
-            }
+            foundRecords = nil;
         }];
     }];     // end of workQueue block
 
