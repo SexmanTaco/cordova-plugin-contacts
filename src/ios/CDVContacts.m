@@ -405,6 +405,7 @@
             }
             foundRecords = nil;
         }];
+        CFRelease(abHelper);
     }];     // end of workQueue block
 
     return;
