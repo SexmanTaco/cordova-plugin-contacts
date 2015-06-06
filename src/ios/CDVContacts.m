@@ -403,7 +403,7 @@
             if (addrBook) {
                 CFRelease(addrBook);
             }
-            free(foundRecords);
+            free(CFBridgingRetain(foundRecords));
         }];
     }];     // end of workQueue block
 
